@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "iranSans";
+  font-weight: 400;
+  src: url(../font/iranSans/IranSans-400.woff2);
+}
+@font-face {
+  font-family: "iranSans";
+  font-weight: 500;
+  src: url(../font/iranSans/IranSans-500.woff2);
+}
+@font-face {
+  font-family: "iranSans";
+  font-weight: 600;
+  src: url(../font/iranSans/IranSans-600.woff2);
+}
