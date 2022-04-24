@@ -4,12 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./dist/css/output.css" />
+    <script src="./dist/js/index.js" defer></script>
     <title>Phonebook</title>
   </head>
-  <body>
-    <div class="p-4 min-h-screen">
-      <div class="max-w-screen-sm shadow-xl rounded mx-auto">
-        <h3 class="font-iranSans text-2xl p-3 font-bold">دفترچه تلفن</h3>
+  <body class="font-iranSans">
+    <div class="h-screen flex justify-center items-center px-4">
+      <div
+        class="max-w-screen-sm w-full h-[calc(100vh_-_60px)] p-4 shadow-lg border border-slate-200 rounded-md overflow-x-hidden overflow-y-auto"
+      >
+        <h3 class="text-2xl text-center mb-4 font-semibold text-emerald-500">دفترچه تلفن همراه</h3>
+        <div class="flex justify-center mt-2 sm:justify-end sm:px-1">
+          <button
+            class="bg-cyan-500 text-white w-1/2 py-1 rounded disabled:bg-emerald-300 disabled:cursor-not-allowed sm:w-32"
+            id="addContact"
+          >
+            افزودن مخاطب
+          </button>
+        </div>
+        <form class="hidden">
+          <div class="grid grid-cols-1 sm:grid-cols-3">
+            <div class="flex flex-col my-2 col-span-1 sm:col-span-1 sm:px-1 sm:my-0">
+              <label class="text-sm" for="firstname">نام:</label>
+              <input class="border border-gray-200 rounded p-1" type="text" id="firstname" class="border" />
+            </div>
+            <div class="flex flex-col my-2 col-span-1 sm:col-span-1 sm:px-1 sm:my-0">
+              <label class="text-sm" for="lastname">نام خانوادگی:</label>
+              <input class="border border-gray-200 rounded p-1" type="text" id="lastname" class="border" />
+            </div>
+            <div class="flex flex-col my-2 col-span-1 sm:col-span-1 sm:px-1 sm:my-0">
+              <label class="text-sm" for="cellphone">شماره تماس:</label>
+              <input class="border border-gray-200 rounded p-1" type="text" id="cellphone" class="border" />
+            </div>
+          </div>
+          <div class="flex justify-center mt-2 sm:justify-end sm:px-1">
+            <button
+              class="bg-emerald-500 text-white w-1/2 py-1 rounded disabled:bg-emerald-300 disabled:cursor-not-allowed sm:w-24"
+              id="submit"
+            >
+              ثبت
+            </button>
+          </div>
+        </form>
+        <ul class="flex flex-col p-5" id="list"></ul>
       </div>
     </div>
   </body>
