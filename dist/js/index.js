@@ -45,16 +45,26 @@ const submitHandler = () => {
         cellphone.value = "";
     renderList();
 };
+const deleteItemHandler = (id) => {
+    let list = getList();
+    let newList = list.filter((item) => {
+        return (item === null || item === void 0 ? void 0 : item.id) != id;
+    });
+    localStorage.setItem("list", JSON.stringify(newList));
+    renderList();
+};
 const renderList = () => {
     let list = getList();
     let html = `
-  <li class="flex justify-between py-2 font-medium">
-    <span>نام و نام خانوادگی</span>
-    <span>شماره تماس</span>
+  <li class="grid grid-cols-4 py-2 font-medium">
+    <span class="col-span-2">نام و نام خانوادگی</span>
+    <span class="col-span-1 text-center">شماره تماس</span>
+    <span class="col-span-1 text-center">عملیات</span>
   </li>`;
-    list.map((item, i) => (html += `<li class="flex justify-between py-2">
-                  <span>${item === null || item === void 0 ? void 0 : item.firstname} ${item === null || item === void 0 ? void 0 : item.lastname}</span>
-                  <span>${item === null || item === void 0 ? void 0 : item.phone}</span>
+    list.map((item, i) => (html += `<li class="grid grid-cols-4 py-2 item-list">
+                  <span class="col-span-2">${item === null || item === void 0 ? void 0 : item.firstname} ${item === null || item === void 0 ? void 0 : item.lastname}</span>
+                  <span class="col-span-1 text-center">${item === null || item === void 0 ? void 0 : item.phone}</span>
+                  <span id="item${item === null || item === void 0 ? void 0 : item.id}" class="col-span-1 text-red-600 text-center cursor-pointer delete-item">حذف</span>
                 </li>`));
     if (phonebookList)
         phonebookList.innerHTML = html;
@@ -70,3 +80,11 @@ firstname === null || firstname === void 0 ? void 0 : firstname.addEventListener
 lastname === null || lastname === void 0 ? void 0 : lastname.addEventListener("input", (e) => setValueHandler(e, lastname));
 cellphone === null || cellphone === void 0 ? void 0 : cellphone.addEventListener("input", (e) => setValueHandler(e, cellphone));
 submitBtn === null || submitBtn === void 0 ? void 0 : submitBtn.addEventListener("click", submitHandler);
+phonebookList === null || phonebookList === void 0 ? void 0 : phonebookList.addEventListener("click", (e) => {
+    let target = e.target;
+    if (target === null || target === void 0 ? void 0 : target.classList.contains("delete-item")) {
+        let id = +(target === null || target === void 0 ? void 0 : target.id.substr(4));
+        deleteItemHandler(id);
+        renderList();
+    }
+});
