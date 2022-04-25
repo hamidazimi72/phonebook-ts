@@ -50,18 +50,29 @@ const submitHandler = () => {
   renderList();
 };
 
+const deleteItemHandler = (id: number) => {
+  let list = getList();
+  let newList = list.filter((item: any) => {
+    return item?.id != id;
+  });
+  localStorage.setItem("list", JSON.stringify(newList));
+  renderList();
+};
+
 const renderList = () => {
   let list = getList();
   let html = `
-  <li class="flex justify-between py-2 font-medium">
-    <span>نام و نام خانوادگی</span>
-    <span>شماره تماس</span>
+  <li class="grid grid-cols-4 py-2 font-medium">
+    <span class="col-span-2">نام و نام خانوادگی</span>
+    <span class="col-span-1 text-center">شماره تماس</span>
+    <span class="col-span-1 text-center">عملیات</span>
   </li>`;
   list.map(
     (item: any, i: number) =>
-      (html += `<li class="flex justify-between py-2">
-                  <span>${item?.firstname} ${item?.lastname}</span>
-                  <span>${item?.phone}</span>
+      (html += `<li class="grid grid-cols-4 py-2 item-list">
+                  <span class="col-span-2">${item?.firstname} ${item?.lastname}</span>
+                  <span class="col-span-1 text-center">${item?.phone}</span>
+                  <span id="item${item?.id}" class="col-span-1 text-red-600 text-center cursor-pointer delete-item">حذف</span>
                 </li>`)
   );
   if (phonebookList) phonebookList.innerHTML = html;
@@ -80,3 +91,11 @@ firstname?.addEventListener("input", (e) => setValueHandler(e, firstname));
 lastname?.addEventListener("input", (e) => setValueHandler(e, lastname));
 cellphone?.addEventListener("input", (e) => setValueHandler(e, cellphone));
 submitBtn?.addEventListener("click", submitHandler);
+phonebookList?.addEventListener("click", (e) => {
+  let target = <HTMLSpanElement>e.target;
+  if (target?.classList.contains("delete-item")) {
+    let id = +target?.id.substr(4);
+    deleteItemHandler(id);
+    renderList();
+  }
+});
